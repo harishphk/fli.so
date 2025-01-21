@@ -12,15 +12,20 @@ import { urlSchema } from "$lib/schema/url";
 import { zod } from "sveltekit-superforms/adapters";
 import { convertExpirationToDate, hashPassword } from "$lib/utils/index";
 import { env } from "$env/dynamic/private";
-import { isReservedKeyword } from '$lib/utils/validation';
+import { isReservedKeyword } from "$lib/utils/validation";
 
 const HASH_SECRET = env.HASH_SECRET || "your-fallback-secret-key";
 
 export const load: PageServerLoad = async ({ locals }) => {
+  console.log("locals", locals);
+
   if (!locals.pb.authStore.isValid) {
     throw redirect(302, "/app/login");
   }
-  
+
+  if (locals.user.is_blocked) {
+    throw redirect(302, "/app/blocked");
+  }
 
   try {
     const [urls, tags, userWithSubscription] = await Promise.all([
@@ -39,6 +44,8 @@ export const load: PageServerLoad = async ({ locals }) => {
           sort: "-created",
         }),
     ]);
+
+    console.log("userWithSubscription", userWithSubscription);
 
     return {
       urls,
@@ -133,7 +140,7 @@ export const actions: Actions = {
       if (isReservedKeyword(form.data.slug)) {
         return fail(400, {
           form,
-          message: "This URL is reserved for system use"
+          message: "This URL is reserved for system use",
         });
       }
 
@@ -207,7 +214,7 @@ export const actions: Actions = {
 
       if (isReservedKeyword(slug)) {
         return fail(400, {
-          message: "This URL is reserved for system use"
+          message: "This URL is reserved for system use",
         });
       }
 

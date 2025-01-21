@@ -108,6 +108,7 @@ export type UrlsRecord = {
 export type UsersRecord = {
 	avatar?: string
 	name?: string
+	is_blocked?: boolean
 }
 
 // Response types include system fields and match responses from the PocketBase API
