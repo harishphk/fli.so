@@ -9,7 +9,7 @@
     UrlListCard,
     UrlEmptyState,
     EmptySearchResult,
-  } from "$lib/components/ui/core";
+  } from "$lib/components/ui/core/misc";
 
   interface Props {
     urls: UrlsResponseWithTags[];

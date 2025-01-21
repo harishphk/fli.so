@@ -1,19 +1,19 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
   const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("yq7y9q93v9mlxmq")
+  const collection = dao.findCollectionByNameOrId("te7nvqcfc7ipn0u")
 
   // add
   collection.schema.addField(new SchemaField({
     "system": false,
-    "id": "ddtxaev3",
-    "name": "domain_id",
+    "id": "rkyvlxtu",
+    "name": "creator_id",
     "type": "relation",
     "required": false,
     "presentable": false,
     "unique": false,
     "options": {
-      "collectionId": "469ndywsep8ecvn",
+      "collectionId": "_pb_users_auth_",
       "cascadeDelete": false,
       "minSelect": null,
       "maxSelect": 1,
@@ -24,10 +24,10 @@ migrate((db) => {
   return dao.saveCollection(collection)
 }, (db) => {
   const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("yq7y9q93v9mlxmq")
+  const collection = dao.findCollectionByNameOrId("te7nvqcfc7ipn0u")
 
   // remove
-  collection.schema.removeField("ddtxaev3")
+  collection.schema.removeField("rkyvlxtu")
 
   return dao.saveCollection(collection)
 })

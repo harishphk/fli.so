@@ -1,31 +1,17 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
   const collection = new Collection({
-    "id": "469ndywsep8ecvn",
-    "created": "2024-11-30 08:29:54.301Z",
-    "updated": "2024-11-30 08:29:54.301Z",
-    "name": "domains",
+    "id": "zz968a8ldadfou4",
+    "created": "2024-12-26 08:39:30.935Z",
+    "updated": "2024-12-26 08:39:30.935Z",
+    "name": "products",
     "type": "base",
     "system": false,
     "schema": [
       {
         "system": false,
-        "id": "vxevfkyy",
-        "name": "domain",
-        "type": "text",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "system": false,
-        "id": "aeh0hbkr",
-        "name": "user_id",
+        "id": "chkl9vtm",
+        "name": "creator_id",
         "type": "relation",
         "required": false,
         "presentable": false,
@@ -40,24 +26,8 @@ migrate((db) => {
       },
       {
         "system": false,
-        "id": "oxvonyoq",
-        "name": "status",
-        "type": "select",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "maxSelect": 1,
-          "values": [
-            "pending",
-            "verified"
-          ]
-        }
-      },
-      {
-        "system": false,
-        "id": "vntyprgm",
-        "name": "verification_token",
+        "id": "vvmyhsvo",
+        "name": "title",
         "type": "text",
         "required": false,
         "presentable": false,
@@ -70,19 +40,55 @@ migrate((db) => {
       },
       {
         "system": false,
-        "id": "dyvcs7x6",
-        "name": "verification_method",
-        "type": "select",
+        "id": "yux5qdvk",
+        "name": "description",
+        "type": "text",
         "required": false,
         "presentable": false,
         "unique": false,
         "options": {
-          "maxSelect": 1,
-          "values": [
-            "dns",
-            "file"
-          ]
+          "min": null,
+          "max": null,
+          "pattern": ""
         }
+      },
+      {
+        "system": false,
+        "id": "bxjlfc9j",
+        "name": "price",
+        "type": "number",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "noDecimal": false
+        }
+      },
+      {
+        "system": false,
+        "id": "glenkvx2",
+        "name": "currency",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "system": false,
+        "id": "o0fkh16l",
+        "name": "is_published",
+        "type": "bool",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {}
       }
     ],
     "indexes": [],
@@ -97,7 +103,7 @@ migrate((db) => {
   return Dao(db).saveCollection(collection);
 }, (db) => {
   const dao = new Dao(db);
-  const collection = dao.findCollectionByNameOrId("469ndywsep8ecvn");
+  const collection = dao.findCollectionByNameOrId("zz968a8ldadfou4");
 
   return dao.deleteCollection(collection);
 })
