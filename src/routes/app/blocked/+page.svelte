@@ -90,7 +90,7 @@
                 href="mailto:sanju@fli.so"
                 class="text-primary hover:underline"
               >
-                sanju@fli.so
+                team@fli.so
               </a>
             </p>
           </div>
