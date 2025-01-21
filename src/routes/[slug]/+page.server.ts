@@ -11,10 +11,12 @@ export const load: PageServerLoad = async ({ params }) => {
   // Authenticate as admin because we have api rules that prevent unauthenticated access
   console.log("Starting load function with params:", params);
   const pb = createInstance();
-  await pb.admins.authWithPassword(
-    env.POCKETBASE_ADMIN_EMAIL!,
-    env.POCKETBASE_ADMIN_PASSWORD!,
-  );
+  await pb
+    .collection("_superusers")
+    .authWithPassword(
+      env.POCKETBASE_ADMIN_EMAIL!,
+      env.POCKETBASE_ADMIN_PASSWORD!,
+    );
   console.log("Successfully authenticated with PocketBase");
 
   if (!params.slug) {
@@ -82,10 +84,12 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions = {
   verify_password: async ({ request }) => {
     const pb = createInstance();
-    await pb.admins.authWithPassword(
-      env.POCKETBASE_ADMIN_EMAIL!,
-      env.POCKETBASE_ADMIN_PASSWORD!,
-    );
+    await pb
+      .collection("_superusers")
+      .authWithPassword(
+        env.POCKETBASE_ADMIN_EMAIL!,
+        env.POCKETBASE_ADMIN_PASSWORD!,
+      );
 
     // Get form data from request
     const formData = await request.formData();

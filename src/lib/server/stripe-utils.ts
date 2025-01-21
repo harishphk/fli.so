@@ -14,10 +14,12 @@ export async function createOrRetrieveStripeCustomer(user: UsersResponse) {
     const pb = createInstance();
 
     // Authenticate as admin
-    await pb.admins.authWithPassword(
-      env.POCKETBASE_ADMIN_EMAIL!,
-      env.POCKETBASE_ADMIN_PASSWORD!,
-    );
+    await pb
+      .collection("_superusers")
+      .authWithPassword(
+        env.POCKETBASE_ADMIN_EMAIL!,
+        env.POCKETBASE_ADMIN_PASSWORD!,
+      );
 
     // Check if customer already exists in PocketBase
     const existingCustomer = await pb

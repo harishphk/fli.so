@@ -14,10 +14,12 @@ export const actions: Actions = {
 
     try {
       const pb = createInstance();
-      await pb.admins.authWithPassword(
-        env.POCKETBASE_ADMIN_EMAIL!,
-        env.POCKETBASE_ADMIN_PASSWORD!,
-      );
+      await pb
+        .collection("_superusers")
+        .authWithPassword(
+          env.POCKETBASE_ADMIN_EMAIL!,
+          env.POCKETBASE_ADMIN_PASSWORD!,
+        );
 
       const exists = await pb
         .collection("waitlist")
