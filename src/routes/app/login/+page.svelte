@@ -5,6 +5,7 @@
   import { enhance } from "$app/forms";
   import { toast } from "svelte-sonner";
   import { Logo } from "$lib/components/ui/core/misc";
+
   let email = $state("");
   let password = $state("");
   let showPassword = $state(false);
@@ -14,7 +15,7 @@
 </script>
 
 <div class="flex h-screen flex-col items-center justify-center p-4">
-  <div class="rounded-4xl w-full max-w-md bg-card/40 p-2 pt-8">
+  <div class="w-full max-w-md rounded-4xl bg-card/40 p-2 pt-8">
     <div class="mb-8 flex flex-col items-center gap-2 text-center">
       <Logo href="/app/login" />
       <div class="mt-4 flex flex-col gap-2">
@@ -34,14 +35,20 @@
       <Button
         variant={isLogin ? "default" : "ghost"}
         class="rounded-full"
-        onclick={() => (isLogin = true)}
+        onclick={() => {
+          isLogin = true;
+          showForgotPassword = false;
+        }}
       >
         Log in
       </Button>
       <Button
         variant={!isLogin ? "default" : "ghost"}
         class="rounded-full"
-        onclick={() => (isLogin = false)}
+        onclick={() => {
+          isLogin = false;
+          showForgotPassword = false;
+        }}
       >
         Sign up
       </Button>
@@ -51,7 +58,7 @@
       <form
         method="POST"
         action="?/forgotPassword"
-        class="rounded-4xl flex flex-col gap-4 bg-white p-4"
+        class="flex flex-col gap-4 rounded-4xl bg-white p-4"
         use:enhance={() => {
           isLoading = true;
           return async ({ result, update }) => {
@@ -108,19 +115,19 @@
       <form
         method="POST"
         action={isLogin ? "?/login" : "?/signup"}
-        class="rounded-4xl flex flex-col gap-4 bg-white p-4"
+        class="flex flex-col gap-4 rounded-4xl bg-white p-4"
         use:enhance={() => {
           isLoading = true;
           return async ({ result, update }) => {
             if (result.type === "failure") {
               if (result.data?.unverified) {
-                toast.error(result.data.message, {
+                toast.error(result.data?.message as string, {
                   duration: 10000,
                   description:
                     "Please check your inbox and spam folder for the verification email.",
                 });
               } else if (result.data?.message) {
-                toast.error(result.data.message);
+                toast.error(result.data?.message as string);
               } else if (result.status === 401) {
                 toast.error("Invalid credentials");
               } else {
@@ -207,7 +214,10 @@
           <button
             type="button"
             class="ml-1 text-foreground hover:underline"
-            onclick={() => (isLogin = !isLogin)}
+            onclick={() => {
+              isLogin = !isLogin;
+              showForgotPassword = false;
+            }}
           >
             {isLogin ? "Sign up" : "Log in"}
           </button>
